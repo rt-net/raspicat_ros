@@ -118,8 +118,8 @@ void callbackCmdvel(const geometry_msgs::Twist::ConstPtr& msg)
 	if(!imu_flag)
 		vel.angular.z = msg->angular.z;
 
-	double forward_hz = 80000.0*msg->linear.x/(9*3.141592);
-	double rot_hz = 400.0*msg->angular.z/3.141592;
+	double forward_hz = 50000.0*msg->linear.x/(19.0*3.141592);
+	double rot_hz = 6975.0*msg->angular.z/(19.0*3.141592);
 	setFreqs((int)round(forward_hz-rot_hz), (int)round(forward_hz+rot_hz));
 	in_cmdvel = true;
 	last_cmdvel = Time::now();
