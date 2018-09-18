@@ -3,10 +3,10 @@
 import unittest, rostest
 import rosnode, rospy
 import time
-from raspimouse_ros_2.msg import MotorFreqs
+from raspicat_ros.msg import MotorFreqs
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger, TriggerResponse
-from raspimouse_ros_2.srv import TimedMotion                         # 追加
+from raspicat_ros.srv import TimedMotion                         # 追加
 
 class MotorTest(unittest.TestCase):
     def setUp(self):
@@ -79,4 +79,4 @@ class MotorTest(unittest.TestCase):
 
 if __name__ == '__main__':
     rospy.init_node('travis_test_motors')
-    rostest.rosrun('raspimouse_ros_2','travis_test_motors', MotorTest)
+    rostest.rosrun('raspicat_ros','travis_test_motors', MotorTest)
