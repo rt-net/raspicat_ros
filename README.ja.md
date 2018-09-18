@@ -75,7 +75,7 @@ rosdep install -r -y --from-paths src
 
 以下のコマンドで本リポジトリをビルドします。
 ここでエラーが出てしまった場合はステップ5を再度実行してみてください。
-それでも解決しない場合は[https://github.com/rt-net/raspicat_ros/issues](Issues)にてお問い合わせください。
+それでも解決しない場合は[Issues](https://github.com/rt-net/raspicat_ros/issues)にてお問い合わせください。
 
 ```
 cd ~/catkin_ws
@@ -101,4 +101,4 @@ rostopic pub /buzzer std_msgs/UInt16 1000
 
 ## ライセンス
 このリポジトリはApache 2.0ライセンスの元、公開されています。
-ライセンスについては[./LICENSE](LICENSE)を参照ください。
+ライセンスについては[LICENSE](./LICENSE)を参照ください。
