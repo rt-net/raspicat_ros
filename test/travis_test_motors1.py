@@ -3,7 +3,7 @@
 import unittest, rostest
 import rosnode, rospy
 import time
-from raspicat_ros.msg import MotorFreqs
+from raspicat.msg import MotorFreqs
 from geometry_msgs.msg import Twist
 
 class MotorTest(unittest.TestCase):
@@ -46,4 +46,4 @@ class MotorTest(unittest.TestCase):
 if __name__ == '__main__':
     time.sleep(3)
     rospy.init_node('travis_test_motors')
-    rostest.rosrun('raspicat_ros','travis_test_motors', MotorTest)
+    rostest.rosrun('raspicat','travis_test_motors', MotorTest)

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>raspicat_ros</name>
+  <name>raspicat</name>
   <version>0.0.1</version>
   <description>Base nodes for Rasberry Pi Cat</description>
 
@@ -11,7 +11,7 @@
 
   <license>Apache 2.0</license>
 
-  <url type="website">http://wiki.ros.org/ja/raspicat_ros</url>
+  <url type="website">http://wiki.ros.org/ja/raspicat</url>
   <url type="repository">https://github.com/rt-net/raspicat_ros</url>
   <url type="bugtracker">https://github.com/rt-net/raspicat_ros/issues</url>
 

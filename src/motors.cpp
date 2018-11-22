@@ -3,8 +3,8 @@
 #include <ros/package.h> 
 #include "std_srvs/Trigger.h"
 #include "geometry_msgs/Twist.h"
-#include "raspicat_ros/MotorFreqs.h"
-#include "raspicat_ros/TimedMotion.h"
+#include "raspicat/MotorFreqs.h"
+#include "raspicat/TimedMotion.h"
 #include <nav_msgs/Odometry.h>
 #include <tf/tf.h>
 #include <tf2/LinearMath/Quaternion.h>
@@ -20,8 +20,8 @@ void setFreqs(int left, int right);
 void onSigint(int);
 bool callbackOn(std_srvs::Trigger::Request&, std_srvs::Trigger::Response&);
 bool callbackOff(std_srvs::Trigger::Request&, std_srvs::Trigger::Response&);
-bool callbackTimedMotion(raspicat_ros::TimedMotion::Request&, raspicat_ros::TimedMotion::Response&);
-void callbackRaw(const raspicat_ros::MotorFreqs::ConstPtr& msg);
+bool callbackTimedMotion(raspicat::TimedMotion::Request&, raspicat::TimedMotion::Response&);
+void callbackRaw(const raspicat::MotorFreqs::ConstPtr& msg);
 void callbackCmdvel(const geometry_msgs::Twist::ConstPtr& msg);
 void callback9Axis(const sensor_msgs::Imu::ConstPtr& msg);
 
@@ -86,7 +86,7 @@ bool callbackOff(std_srvs::Trigger::Request& request, std_srvs::Trigger::Respons
 	return true;
 }
 
-bool callbackTimedMotion(raspicat_ros::TimedMotion::Request& request, raspicat_ros::TimedMotion::Response& response)
+bool callbackTimedMotion(raspicat::TimedMotion::Request& request, raspicat::TimedMotion::Response& response)
 {
 	if(not is_on){
 		ROS_INFO("Motors are not enpowered");
@@ -106,7 +106,7 @@ bool callbackTimedMotion(raspicat_ros::TimedMotion::Request& request, raspicat_r
 	return true;
 }
 
-void callbackRaw(const raspicat_ros::MotorFreqs::ConstPtr& msg)
+void callbackRaw(const raspicat::MotorFreqs::ConstPtr& msg)
 {
 	setFreqs(msg->left_hz, msg->right_hz);
 }

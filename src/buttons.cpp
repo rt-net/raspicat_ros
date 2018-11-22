@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include <ros/package.h> 
-#include "raspicat_ros/ButtonValues.h"
+#include "raspicat/ButtonValues.h"
 #include <fstream>
 using namespace ros;
 
@@ -17,10 +17,10 @@ int main(int argc, char **argv)
 	init(argc,argv,"buttons");
 	NodeHandle n;
 
-	Publisher pub = n.advertise<raspicat_ros::ButtonValues>("buttons", 5);
+	Publisher pub = n.advertise<raspicat::ButtonValues>("buttons", 5);
 
 	ros::Rate loop_rate(10);
-	raspicat_ros::ButtonValues msg;
+	raspicat::ButtonValues msg;
 	int c[3] = {0,0,0};
 	while(ok()){
 		msg.front = readButton("/dev/rtswitch0");

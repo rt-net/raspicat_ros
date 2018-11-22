@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include <ros/package.h> 
-#include "raspicat_ros/LightSensorValues.h"
+#include "raspicat/LightSensorValues.h"
 #include <fstream>
 using namespace ros;
 
@@ -18,12 +18,12 @@ int main(int argc, char **argv)
 	init(argc,argv,"lightsensors");
 	NodeHandle n("~");
 
-	Publisher pub = n.advertise<raspicat_ros::LightSensorValues>("/lightsensors", 5);
+	Publisher pub = n.advertise<raspicat::LightSensorValues>("/lightsensors", 5);
 
 	int freq = 10;
 
 	ros::Rate loop_rate(freq);
-	raspicat_ros::LightSensorValues msg;
+	raspicat::LightSensorValues msg;
 
 	unsigned int c = 0;
 	while(ok()){

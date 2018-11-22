@@ -1,8 +1,8 @@
 <launch>
-  <node pkg="raspicat_ros" name="buzzer" type="buzzer.py" required="true" />
-  <node pkg="raspicat_ros" name="lightsensors" type="lightsensors" required="true" />
-  <node pkg="raspicat_ros" name="motors" type="motors" required="true" />
-  <test test-name="test_buzzer" pkg="raspicat_ros" type="travis_test_buzzer.py" />
-  <test test-name="test_lightsensors" pkg="raspicat_ros" type="travis_test_lightsensors.py" />
-  <test test-name="test_motors" pkg="raspicat_ros" type="travis_test_motors.py" time-limit="60.0" />
+  <node pkg="raspicat" name="buzzer" type="buzzer.py" required="true" />
+  <node pkg="raspicat" name="lightsensors" type="lightsensors" required="true" />
+  <node pkg="raspicat" name="motors" type="motors" required="true" />
+  <test test-name="test_buzzer" pkg="raspicat" type="travis_test_buzzer.py" />
+  <test test-name="test_lightsensors" pkg="raspicat" type="travis_test_lightsensors.py" />
+  <test test-name="test_motors" pkg="raspicat" type="travis_test_motors.py" time-limit="60.0" />
 </launch>

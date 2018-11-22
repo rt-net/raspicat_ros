@@ -4,7 +4,7 @@ import rospy, unittest, rostest, actionlib
 import rosnode
 import time
 from std_msgs.msg import UInt16
-from raspicat_ros.msg import MusicAction, MusicResult, MusicFeedback, MusicGoal #1行追加
+from raspicat.msg import MusicAction, MusicResult, MusicFeedback, MusicGoal #1行追加
 
 class BuzzerTest(unittest.TestCase):
     def setUp(self):                                #setUpメソッドを追加する
@@ -56,4 +56,4 @@ class BuzzerTest(unittest.TestCase):
 if __name__ == '__main__':
     time.sleep(3)
     rospy.init_node('travis_test_buzzer')
-    rostest.rosrun('raspicat_ros','travis_test_buzzer',BuzzerTest)
+    rostest.rosrun('raspicat','travis_test_buzzer',BuzzerTest)

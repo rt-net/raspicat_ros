@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/rt-net/raspicat_ros.svg?branch=master)](https://travis-ci.org/rt-net/raspicat_ros)
+[![Build Status](https://travis-ci.org/rt-net/raspicat_ros.svg?branch=kinetic-devel)](https://travis-ci.org/rt-net/raspicat_ros)
 
-# raspicat_ros
+# raspicat
 
 ## 必要環境
 
@@ -59,7 +59,7 @@ source ~/catkin_ws/devel/setup.bash
 
 ```
 cd ~/catkin_ws/src
-git clone https://github.com/ryuichiueda/raspicat_ros.git
+git clone https://github.com/rt-net/raspicat_ros.git
 ```
 
 ### 5. 依存関係にあるパッケージのインストール
@@ -89,7 +89,7 @@ source ~/catkin_ws/devel/setup.bash
 以下のコマンドを実行し、基盤となるプログラム群を起動します。
 
 ```
-roslaunch raspicat_ros raspimouse.launch
+roslaunch raspicat raspicat.launch
 ```
 
 次に別の端末にて以下のコマンドを実行します。
