@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(raspicat_ros)
+project(raspicat)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -106,7 +106,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES raspicat_ros
+#  LIBRARIES raspicat
   CATKIN_DEPENDS rospy std_msgs std_srvs message_runtime
 #  DEPENDS system_lib
 )
@@ -167,7 +167,7 @@ target_link_libraries(lightsensors ${catkin_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS raspicat_ros raspicat_ros_node
+# install(TARGETS raspicat raspicat_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

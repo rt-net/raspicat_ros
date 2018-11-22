@@ -8,4 +8,4 @@ before_script:
   - source ~/catkin_ws/devel/setup.bash
   - bash -xve ./test/travis_prepare_dummy_files.bash
 script:
-  - rostest raspicat_ros test.launch
+  - rostest raspicat test.launch
