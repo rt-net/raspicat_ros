@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rt-net/raspicat_ros.svg?branch=kinetic-devel)](https://travis-ci.org/rt-net/raspicat_ros)
+[![industrial_ci](https://github.com/rt-net/raspicat_ros/workflows/industrial_ci/badge.svg?branch=master)](https://github.com/rt-net/raspicat_ros/actions?query=workflow%3Aindustrial_ci+branch%3Amaster)
 
 # raspicat
 
