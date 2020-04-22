@@ -24,6 +24,9 @@ jobs:
             experimental: true
           - env: { ROS_DISTRO: melodic, ROS_REPO: testing }
             experimental: true
+    env:
+      BEFORE_SCRIPRT: "./test/travis_prepare_dummy_files.bash"
+      AFTER_SCRIPT: "./test/rostest.bash"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
