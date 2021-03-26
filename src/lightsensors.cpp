@@ -37,8 +37,8 @@ int main(int argc, char **argv)
 		}
 
 		std::ifstream ifs("/dev/rtlightsensor0");
-		ifs >> msg.right_forward >> msg.right_side
-			>> msg.left_side >> msg.left_forward;
+		ifs >> msg.right_side >> msg.right_forward
+			>> msg.left_forward >> msg.left_side;
 
 		msg.sum_forward = msg.left_forward + msg.right_forward;
 		msg.sum_all = msg.sum_forward + msg.left_side + msg.right_side;
