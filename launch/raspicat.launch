@@ -1,6 +1,9 @@
 <launch>
   <arg name="imu" default="0" />
-  <include if="$(arg imu)" file="$(find rt_usb_9axis_sensor)/launch/rt_usb_9axis_sensor.launch" />
+  <arg name="port" default="/dev/ttyACM0" />
+  <include if="$(arg imu)" file="$(find rt_usb_9axisimu_driver)/launch/rt_usb_9axisimu_driver.launch">
+    <arg name="port" value="$(arg port)" />
+  </include>
 
   <node pkg="raspicat" name="buzzer" type="buzzer.py" required="true" />
 
