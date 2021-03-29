@@ -71,7 +71,10 @@ jobs:
           required-ros-distributions: ${{ matrix.ros_distribution }}
       - name: Setup dunmmy files
         run: ./test/prepare_dummy_files.bash
-      - uses: ros-tooling/action-ros-ci@v0.1
-        with:
-          package-name: raspicat
-          target-ros1-distro: ${{ matrix.ros_distribution }}
+      - name: Run test
+        run: |
+          mkdir -p ~/catkin_ws/src
+          rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
+          cd ~/catkin_ws
+          catkin init
+          catkin build raspicat --catkin-make-args run_tests
