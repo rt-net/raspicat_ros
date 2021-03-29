@@ -69,13 +69,14 @@ jobs:
       - uses: ros-tooling/setup-ros@v0.1
         with:
           required-ros-distributions: ${{ matrix.ros_distribution }}
-      - name: Setup dunmmy files
-        run: ./test/prepare_dummy_files.bash
-      - name: Run test
+      - name: Prepare test
         run: |
-          apt-get install -y rsync
+          ./test/prepare_dummy_files.bash
+          apt-get install -y rsync python-catkin-tools
           mkdir -p ~/catkin_ws/src
           rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
+      - name: Run test
+        run: |
           cd ~/catkin_ws
           catkin init
           catkin build raspicat --catkin-make-args run_tests
