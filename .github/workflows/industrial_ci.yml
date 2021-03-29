@@ -77,6 +77,7 @@ jobs:
           rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
       - name: Run test
         run: |
+          source /opt/ros/${{ matrix.ros_distribution }}/setup.bash
           cd ~/catkin_ws
           catkin init
           catkin build raspicat --catkin-make-args run_tests
