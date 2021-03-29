@@ -73,6 +73,7 @@ jobs:
         run: ./test/prepare_dummy_files.bash
       - name: Run test
         run: |
+          apt-get install -y rsync
           mkdir -p ~/catkin_ws/src
           rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
           cd ~/catkin_ws
