@@ -2,11 +2,17 @@ name: industrial_ci
 
 on:
   push:
+    branches:
+      - '**-devel' 
+      - 'master'
     paths-ignore:
-    - '**.md'
+      - '**.md'
   pull_request:
+    branches:
+      - '**-devel' 
+      - 'master'
     paths-ignore:
-    - '**.md'
+      - '**.md'
   schedule:
     - cron: "0 2 * * 0" # Weekly on Sundays at 02:00
 
@@ -80,4 +86,5 @@ jobs:
           . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
           cd ~/catkin_ws
           catkin init
-          catkin build raspicat --catkin-make-args run_tests
+          catkin build
+          catkin run_tests --no-deps raspicat
