@@ -12,13 +12,13 @@ void output(std::ofstream *ofs, bool input)
 void cb(const raspicat::LedValues::ConstPtr& msg)
 {
 	std::ofstream ofs0("/dev/rtled0");
-	output(&ofs0, msg->right_side);
+	output(&ofs0, msg->left_side);
 	std::ofstream ofs1("/dev/rtled1");
-	output(&ofs1, msg->right_forward);
+	output(&ofs1, msg->left_forward);
 	std::ofstream ofs2("/dev/rtled2");
-	output(&ofs2, msg->left_forward);
+	output(&ofs2, msg->right_forward);
 	std::ofstream ofs3("/dev/rtled3");
-	output(&ofs3, msg->left_side);
+	output(&ofs3, msg->right_side);
 }
 
 

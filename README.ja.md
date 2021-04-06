@@ -7,13 +7,11 @@
 下記の環境にて動作確認を行っています。
 
 * Raspberry Pi
-  * Raspberry Pi 3 model B
-  * Raspberry Pi 3 model B+
+  * Raspberry Pi 4 model B
 * Ubuntu
-  * Ubuntu 16.04
-  * Ubuntu MATE 16.04
+  * Ubuntu 18.04
 * ROS 
-  * ROS Kinetic Kame
+  * ROS Melodic Morenia
 * Device Driver
   * [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
 
@@ -21,9 +19,9 @@
 
 ### 1. 最新版のROSをインストール  
 
-[ROS WiKi](http://wiki.ros.org/kinetic/Installation)を参照するか、以下のスクリプトを使用してROSのインストールを完了させてください。
+[ROS WiKi](http://wiki.ros.org/melodic/Installation)を参照するか、以下のスクリプトを使用してROSのインストールを完了させてください。
 
-* [ryuichiueda/ros_setup_scripts_Ubuntu16.04_server](https://github.com/ryuichiueda/ros_setup_scripts_Ubuntu16.04_server)
+* [ryuichiueda/ros_setup_scripts_Ubuntu18.04_server](https://github.com/ryuichiueda/ros_setup_scripts_Ubuntu18.04_server)
 
 ### 2. デバイスドライバのダウンロードとインストール  
 
@@ -44,7 +42,7 @@ catkin_make
 以下の行を `~/.bashrc` から削除します。
 
 ```
-source /opt/ros/kinetic/setup.bash
+source /opt/ros/melodic/setup.bash
 ```
 
 以下の行を `~/.bashrc` に追加します。
