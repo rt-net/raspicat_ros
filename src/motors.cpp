@@ -152,7 +152,7 @@ nav_msgs::Odometry send_odom(void)
 	geometry_msgs::TransformStamped odom_trans;
  	odom_trans.header.stamp = cur_time;
   	odom_trans.header.frame_id = "odom";
-	odom_trans.child_frame_id = "base_link";
+	odom_trans.child_frame_id = "base_footprint";
 
   	odom_trans.transform.translation.x = odom_x;
   	odom_trans.transform.translation.y = odom_y;
@@ -170,7 +170,7 @@ nav_msgs::Odometry send_odom(void)
 	nav_msgs::Odometry odom;
 	odom.header.stamp = cur_time;
 	odom.header.frame_id = "odom";
-	odom.child_frame_id = "base_link";
+	odom.child_frame_id = "base_footprint";
 
 	odom.pose.pose.position.x = odom_x;
 	odom.pose.pose.position.y = odom_y;
