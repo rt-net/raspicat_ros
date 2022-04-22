@@ -64,3 +64,13 @@ $ rostopic pub -1 /cmd_vel geometry_msgs/Twist '{linear: {x: 0.15, y: 0, z: 0}, 
 
 ※このソフトウェアは基本的にオープンソースソフトウェアとして「AS IS」（現状有姿のまま）で提供しています。本ソフトウェアに関する無償サポートはありません。  
 バグの修正や誤字脱字の修正に関するリクエストは常に受け付けていますが、それ以外の機能追加等のリクエストについては社内のガイドラインを優先します。
+
+### Acknowledgements
+
+このソフトウェアは以下のソフトウェアをベースに開発されています。
+
+* [zaki0929/raspimouse_game_controller](https://github.com/zaki0929/raspimouse_game_controller)
+    * BSD 3-Clause License
+    * `Copyright (c) 2017, Ryo Okazaki`
+
+サードパーティのOSS利用についての詳しい情報は[OSSライセンスにもとづく表記](./THIRD-PARTY-NOTICE.md)を参照してください。

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="imu" default="false" />
+  <arg name="imu_port" default="/dev/ttyACM0" />
+  <arg name="dev" default="/dev/input/js0" />
+
+  <!-- raspicat_ros -->
+  <include file="$(find raspicat)/launch/raspicat.launch">
+    <arg name="imu" value="$(arg imu)" />
+    <arg name="port" value="$(arg imu_port)" />
+  </include>
+
+  <!-- joy_node -->
+  <include file="$(find raspicat_gamepad_controller)/launch/logicool.launch">
+    <arg name="dev" value="$(arg dev)" />
+  </include>
+
+  <include file="$(find raspicat_gamepad_controller)/launch/smooth.launch" />
+
+</launch>
