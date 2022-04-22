@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>raspicat_bringup</name>
+  <version>0.0.0</version>
+
+  <description>ROS bringup package for raspimouse</description>
+
+  <maintainer email="support@rt-net.jp">RT Corporation</maintainer>
+
+  <license>Apache-2.0</license>
+
+  <url type="bugtracker">https://github.com/rt-net/raspicat_ros/issues</url>
+  <url type="repository">https://github.com/rt-net/raspicat_ros</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>raspicat_control</depend>
+  <depend>raspicat_description</depend>
+  <depend>raspicat_gamepad_controller</depend>
+  <depend>topic_tools</depend>
+  <depend>teleop_twist_keyboard</depend>
+  <depend>twist_mux</depend>
+  <depend>urg_node</depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

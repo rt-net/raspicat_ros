@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="imu"         default="false"/>
+  <arg name="joy"         default="false"/>
+  <arg name="lidar_ether" default="false"/>
+  <arg name="lidar_usb"   default="true"/>
+
+  <arg name="lidar_frame_id"    default="lidar_link"/>
+
+  <arg name="imu_serial_port"   default="/dev/ttyACM1"/>
+  <arg name="joy_dev"           default="/dev/input/js0"/>
+  <arg name="lidar_serial_port" default="/dev/ttyACM0"/>
+  <arg name="lidar_ip_address"  default="192.16.0.10"/>
+
+  <arg name="model" default="$(find raspicat_description)/robots/raspicat.urdf.xacro"/>
+
+  <!-- Raspberry Pi Cat nodes -->
+  <include file="$(find raspicat_bringup)/launch/raspicat_core.launch"/>
+  
+  <!-- URG node -->
+  <node pkg="urg_node" name="urg_node" type="urg_node" required="true">
+    <param name="frame_id" value="$(arg lidar_frame_id)"/>
+    <param if="$(arg lidar_ether)"  name="ip_address"   value="$(arg lidar_ip_address)"/>
+    <param if="$(arg lidar_usb)"    name="serial_port"  value="$(arg lidar_serial_port)"/>
+  </node>
+
+  <!-- rt_usb_9axisimu_driver -->
+  <include if="$(arg imu)" file="$(find rt_usb_9axisimu_driver)/launch/rt_usb_9axisimu_driver.launch">
+    <arg name="port" value="$(arg imu_serial_port)" />
+  </include>
+
+  <!-- Joy node -->
+  <group if="$(arg joy)">
+    <include file="$(find raspicat_gamepad_controller)/launch/logicool.launch">
+      <arg name="dev" value="$(arg joy_dev)"/>
+    </include>
+
+    <include file="$(find raspicat_gamepad_controller)/launch/smooth.launch"/>
+  </group>
+
+  <!-- joint_state_publisher -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+</launch>
