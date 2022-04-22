@@ -1,0 +1,9 @@
+repositories:
+  raspicat/raspicat_description:
+    type: git
+    uri: https://github.com/rt-net/raspicat_description.git
+    version: master
+  raspimouse:
+    type: git
+    uri: https://github.com/rt-net/raspimouse.git
+    version: master
