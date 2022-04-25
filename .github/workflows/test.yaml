@@ -1,4 +1,4 @@
-name: industrial_ci
+name: test
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
       - uses: "ros-industrial/industrial_ci@master"
         env: ${{ matrix.env }}
 
-  test:
+  catkin_test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
