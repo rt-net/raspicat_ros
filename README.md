@@ -3,9 +3,15 @@
 
 ## Build Status
 
-### master branch
+### main (ros1) branch
 
-[![industrial_ci](https://github.com/rt-net/raspicat_ros/workflows/industrial_ci/badge.svg?branch=master)](https://github.com/rt-net/raspicat_ros/actions?query=workflow%3Aindustrial_ci+branch%3Amaster)
+[![test](https://github.com/rt-net/raspicat_ros/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/rt-net/raspicat_ros/actions/workflows/test.yaml?query=branch%3Amain)
+
+### release branch
+
+* ~~[kinetic-devel](https://github.com/rt-net/raspicat_ros/tree/kinetic-devel)~~ deprecated
+* [melodic-devel](https://github.com/rt-net/raspicat_ros/tree/melodic-devel)
+
 
 ## Requirements
 
