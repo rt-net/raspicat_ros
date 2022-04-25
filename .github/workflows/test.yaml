@@ -56,28 +56,21 @@ jobs:
         # https://ros.org/reps/rep-2000.html
         include:
           # Kinetic Kame (May 2016 - May 2021)
-          - docker_image: ubuntu:xenial
+          - docker_image: ros:kinetic-ros-base-xenial
             ros_distribution: kinetic
-            # Setting ros_version is helpful to customize the workflow
-            # depending on whether a ROS 1, or ROS 2 is being tested.
-            # See 'if: ros_version ==' below for an example.
-            ros_version: 1
 
           # Melodic Morenia (May 2018 - May 2023)
-          - docker_image: ubuntu:bionic
-            ros_distribution: melodic
+          - docker_image: ros:melodic-ros-base-bionic
             ros_version: 1
 
     container:
       image: ${{ matrix.docker_image }}
     steps:
       - uses: actions/checkout@v2
-      - uses: ros-tooling/setup-ros@v0.2
-        with:
-          required-ros-distributions: ${{ matrix.ros_distribution }}
       - name: Prepare test
         run: |
           ./test/prepare_dummy_files.bash
+          apt-get update
           apt-get install -y rsync python-catkin-tools
           mkdir -p ~/catkin_ws/src
           rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
@@ -85,6 +78,7 @@ jobs:
         run: |
           . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
           cd ~/catkin_ws
+          rosdep install -r -y -i --from-paths .
           catkin init
           catkin build
           catkin run_tests --no-deps raspicat
