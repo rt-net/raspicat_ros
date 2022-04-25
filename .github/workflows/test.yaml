@@ -26,11 +26,12 @@ jobs:
         env:
           - { ROS_DISTRO: kinetic, ROS_REPO: main }
           - { ROS_DISTRO: melodic, ROS_REPO: main }
+          - { ROS_DISTRO: noetic, ROS_REPO: main }
         experimental: [false]
         include:
-          - env: { ROS_DISTRO: kinetic, ROS_REPO: testing }
-            experimental: true
           - env: { ROS_DISTRO: melodic, ROS_REPO: testing }
+            experimental: true
+          - env: { ROS_DISTRO: noetic, ROS_REPO: testing }
             experimental: true
     runs-on: ubuntu-latest
     steps:
@@ -43,8 +44,8 @@ jobs:
     strategy:
       matrix:
         ros_distribution:
-          - kinetic
           - melodic
+          - noetic
 
         # Define the Docker image(s) associated with each ROS distribution.
         # The include syntax allows additional variables to be defined, like
@@ -55,26 +56,39 @@ jobs:
         # https://ros.org/reps/rep-0003.html
         # https://ros.org/reps/rep-2000.html
         include:
-          # Kinetic Kame (May 2016 - May 2021)
-          - docker_image: ros:kinetic-ros-base-xenial
-            ros_distribution: kinetic
-
           # Melodic Morenia (May 2018 - May 2023)
           - docker_image: ros:melodic-ros-base-bionic
+            ros_distribution: melodic
+            ros_version: 1
+          # Noetic Ninjemys (May 2020 - May 2025)
+          - docker_image: ros:noetic-ros-base-focal
+            ros_distribution: noetic
             ros_version: 1
 
     container:
       image: ${{ matrix.docker_image }}
     steps:
       - uses: actions/checkout@v2
+
+      - name: Post setup (Noetic)
+        if: ${{ matrix.ros_distribution == 'noetic' }}
+        run: |
+          apt-get update
+          apt-get install -y python3-catkin-tools python3-osrf-pycommon
+      - name: Post setup (Melodic)
+        if: ${{ matrix.ros_distribution == 'melodic' }}
+        run: |
+          apt-get update
+          apt-get install -y python-catkin-tools
+
       - name: Prepare test
         run: |
           ./test/prepare_dummy_files.bash
-          apt-get update
-          apt-get install -y rsync python-catkin-tools
+          apt-get install -y rsync
           rosdep update --include-eol-distros
           mkdir -p ~/catkin_ws/src
           rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
+
       - name: Run test
         run: |
           . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
