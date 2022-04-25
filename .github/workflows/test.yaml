@@ -72,6 +72,7 @@ jobs:
           ./test/prepare_dummy_files.bash
           apt-get update
           apt-get install -y rsync python-catkin-tools
+          rosdep update --include-eol-distros
           mkdir -p ~/catkin_ws/src
           rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
       - name: Run test
