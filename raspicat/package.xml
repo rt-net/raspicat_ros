@@ -14,6 +14,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>raspicat_bringup</exec_depend>
   <exec_depend>raspicat_control</exec_depend>
+  <exec_depend>raspicat_gamepad_controller</exec_depend>
 
   <export>
     <metapackage />
