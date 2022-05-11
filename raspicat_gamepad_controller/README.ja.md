@@ -27,13 +27,13 @@ Raspberry Pi Catを家庭用ゲームコントローラ (Logicool Wireless Gamep
 
 以下のコマンドで`raspicat`の`raspicat.launch`と同時に`joy`ノードを起動します。
 ```
-$ roslaunch raspicat_gamepad_controller run_with_base_nodes.launch
+$ roslaunch raspicat_bringup raspicat_bringup.launch joy:=true
 ```
 
 ジョイスティックが`/dev/input/js0`以外のデバイスで認識されている（例えば`/dev/input/js1`）の場合、
 以下のようにして起動するデバイスを指定できます。
 ```
-$ roslaunch raspicat_gamepad_controller run_with_base_nodes.launch dev:=/dev/input/js1
+$ roslaunch raspicat_bringup raspicat_bringup.launch joy:=true joy_dev:=/dev/input/js1
 ```
 
 ## 操作方法

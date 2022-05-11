@@ -19,7 +19,6 @@
   <run_depend>joy</run_depend>
   <run_depend>nodelet</run_depend>
   <run_depend>ps3joy</run_depend>
-  <run_depend>raspicat_bringup</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>yocs_velocity_smoother</run_depend>
 
