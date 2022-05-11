@@ -40,7 +40,7 @@ $ git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse.git
 $ git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspicat_ros.git
 
 # 依存パッケージのインストール
-$ rosdep install -r -y -i --from-paths raspicat*
+$ rosdep install -r -y -i --from-paths raspicat* raspimouse*
 
 # ビルド＆インストール
 $ cd ~/catkin_ws
