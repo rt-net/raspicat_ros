@@ -59,10 +59,18 @@ class JoyTwist(object):
             self.level -= 1
 
 if __name__ == '__main__':
-    rospy.wait_for_service('/motor_on')
-    rospy.wait_for_service('/motor_off')
-    rospy.on_shutdown(rospy.ServiceProxy('/motor_off', Trigger).call)
-    rospy.ServiceProxy('/motor_on', Trigger).call()
     rospy.init_node('logicool_cmd_vel')
+
+    if rospy.get_param("/logicool_cmd_vel/motor_on_off"):
+        rospy.loginfo("motor_on and motor_off service call has been enabled.")
+        rospy.loginfo("waiting for service...")
+        rospy.wait_for_service('/motor_on')
+        rospy.wait_for_service('/motor_off')
+        rospy.loginfo("motor_on and motor_off service found.")
+        rospy.on_shutdown(rospy.ServiceProxy('/motor_off', Trigger).call)
+        rospy.ServiceProxy('/motor_on', Trigger).call()
+    else:
+        rospy.loginfo("motor_on and motor_off service call has been disabled.")
+    
     logicool_cmd_vel = JoyTwist()
     rospy.spin()
