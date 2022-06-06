@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>raspicat_control</name>
+  <version>0.0.0</version>
+  <description>ROS control package for raspicat</description>
+
+  <maintainer email="support@rt-net.jp">RT Corporation</maintainer>
+  <author email="support@rt-net.jp">RT Corporation</author>
+
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>controller_manager</depend>
+  <depend>raspimouse_control</depend>
+
+  <test_depend>roslaunch</test_depend>
+
+</package>

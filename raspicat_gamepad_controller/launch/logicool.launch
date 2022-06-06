@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="dev" default="/dev/input/js0" />
+  <arg name="motor_on_off" default="true" />
+
+  <node pkg="joy" name="joy_node" type="joy_node" required="true">
+    <param name="autorepeat_rate" value="20" />
+    <param name="dev" type="string" value="$(arg dev)" />
+  </node>
+
+  <node pkg="raspicat_gamepad_controller" name="logicool_cmd_vel"
+    type="logicool_cmd_vel.py" required="true" output="screen">
+    <!-- <remap from="/cmd_vel" to="/raw_cmd_vel" /> -->
+    <param name="motor_on_off" value="$(arg motor_on_off)" />
+  </node>
+
+</launch>

@@ -1,16 +1,18 @@
-name: test
+name: CI
 
 on:
   push:
     branches:
       - '**-devel' 
       - 'master'
+      - 'main'
     paths-ignore:
       - '**.md'
   pull_request:
     branches:
       - '**-devel' 
       - 'master'
+      - 'main'
     paths-ignore:
       - '**.md'
   schedule:
@@ -19,23 +21,17 @@ on:
 jobs:
   industrial_ci:
     continue-on-error: ${{ matrix.experimental }}
-    env:
-      BEFORE_INIT: "./test/prepare_dummy_files.bash"
     strategy:
       matrix:
         env:
-          - { ROS_DISTRO: kinetic, ROS_REPO: main }
-          - { ROS_DISTRO: melodic, ROS_REPO: main }
-          - { ROS_DISTRO: noetic, ROS_REPO: main }
+          - { ROS_DISTRO: melodic, ROS_REPO: main, UPSTREAM_WORKSPACE: '.ci.repos' }
         experimental: [false]
         include:
-          - env: { ROS_DISTRO: melodic, ROS_REPO: testing }
-            experimental: true
-          - env: { ROS_DISTRO: noetic, ROS_REPO: testing }
+          - env: { ROS_DISTRO: melodic, ROS_REPO: testing, UPSTREAM_WORKSPACE: '.ci.repos'  }
             experimental: true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: "ros-industrial/industrial_ci@master"
         env: ${{ matrix.env }}
 
@@ -68,26 +64,27 @@ jobs:
     container:
       image: ${{ matrix.docker_image }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Post setup (Noetic)
         if: ${{ matrix.ros_distribution == 'noetic' }}
         run: |
           apt-get update
-          apt-get install -y python3-catkin-tools python3-osrf-pycommon
+          apt-get install -y python3-catkin-tools python3-osrf-pycommon python3-vcstool
       - name: Post setup (Melodic)
         if: ${{ matrix.ros_distribution == 'melodic' }}
         run: |
           apt-get update
-          apt-get install -y python-catkin-tools
+          apt-get install -y python-catkin-tools python3-vcstool
 
       - name: Prepare test
         run: |
-          ./test/prepare_dummy_files.bash
-          apt-get install -y rsync
+          apt-get install -y rsync git
           rosdep update --include-eol-distros
           mkdir -p ~/catkin_ws/src
           rsync -av --exclude='.git/' ./ ~/catkin_ws/src/raspicat_ros/
+          cd ~/catkin_ws/src
+          vcs import < raspicat_ros/.ci.repos
 
       - name: Run test
         run: |
@@ -97,3 +94,4 @@ jobs:
           catkin init
           catkin build
           catkin run_tests --no-deps raspicat
+          ls -d ~/catkin_ws/build/raspicat* | xargs -I{} catkin_test_results --verbose {} || exit 1
