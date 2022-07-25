@@ -13,8 +13,6 @@
   <arg name="lidar_serial_port" default="/dev/ttyACM0"/>
   <arg name="lidar_ip_address"  default="192.16.0.10"/>
 
-  <arg name="model" default="$(find raspicat_description)/robots/raspicat.urdf.xacro"/>
-
   <!-- Raspberry Pi Cat nodes -->
   <include file="$(find raspicat_bringup)/launch/raspicat_core.launch"/>
   
@@ -38,7 +36,4 @@
 
     <include file="$(find raspicat_gamepad_controller)/launch/smooth.launch"/>
   </group>
-
-  <!-- joint_state_publisher -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
 </launch>
