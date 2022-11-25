@@ -11,7 +11,8 @@
   <arg name="imu_serial_port"   default="/dev/ttyACM1"/>
   <arg name="joy_dev"           default="/dev/input/js0"/>
   <arg name="lidar_serial_port" default="/dev/ttyACM0"/>
-  <arg name="lidar_ip_address"  default="192.16.0.10"/>
+  <!-- Specify the IP address of the URG here, not the IP address of the Raspberry Pi -->
+  <arg name="lidar_ip_address"  default="192.168.0.10"/>
 
   <!-- Raspberry Pi Cat nodes -->
   <include file="$(find raspicat_bringup)/launch/raspicat_core.launch"/>
