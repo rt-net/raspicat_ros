@@ -1,23 +1,17 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.8)
 project(raspicat_bringup)
 
-find_package(catkin REQUIRED)
+find_package(ament_cmake_auto REQUIRED)
 
-catkin_package()
-
-#############
-## Install ##
-#############
-
-install(DIRECTORY launch
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
-#############
-## Testing ##
-#############
-
-if(CATKIN_ENABLE_TESTING)
-  find_package(roslaunch REQUIRED)
-  roslaunch_add_file_check(launch)
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  set(ament_cmake_copyright_FOUND TRUE)
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
 endif()
+
+ament_auto_package(
+  INSTALL_TO_SHARE
+  config
+  launch
+)
