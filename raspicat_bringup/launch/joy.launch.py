@@ -25,32 +25,51 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     joy_dev = LaunchConfiguration('joy_dev')
-    config_filepath = LaunchConfiguration(
-        'config_filepath')
+    joy_config_filepath = LaunchConfiguration(
+        'joy_config_filepath')
+    velocity_smoother_config_filepath = LaunchConfiguration(
+        'velocity_smoother_config_filepath')
 
     joy = GroupAction(
         actions=[
             DeclareLaunchArgument(
-                'joy_vel', default_value='cmd_vel'),
+                'joy_vel', default_value='joy_vel'),
             DeclareLaunchArgument(
                 'joy_dev', default_value='/dev/input/js0'),
-            DeclareLaunchArgument('config_filepath', default_value=[
+            DeclareLaunchArgument('joy_config_filepath', default_value=[
                 TextSubstitution(text=os.path.join(
                     get_package_share_directory('raspicat_bringup'), 'config', '')),
                 'joy', TextSubstitution(text='.config.yaml')]),
-
+            DeclareLaunchArgument('velocity_smoother_config_filepath', default_value=[
+                TextSubstitution(text=os.path.join(
+                    get_package_share_directory('raspicat_bringup'), 'config', '')),
+                'velocity_smoother.param.yaml']),
+            
             Node(
-                package='joy', executable='joy_node', name='joy_node',
+                package='joy', 
+                executable='joy_node', 
+                name='joy_node',
                 parameters=[{
                     'dev': joy_dev,
                     'deadzone': 0.05,
                     'autorepeat_rate': 20.0,
                 }]),
             Node(
-                package='teleop_twist_joy', executable='teleop_node',
-                name='teleop_twist_joy_node', parameters=[config_filepath],
+                package='teleop_twist_joy', 
+                executable='teleop_node',
+                name='teleop_twist_joy_node', 
+                parameters=[joy_config_filepath],
                 remappings={
                     ('/cmd_vel', LaunchConfiguration('joy_vel'))},
+            ),
+            Node(
+                package='nav2_velocity_smoother',
+                executable='velocity_smoother',
+                name='velocity_smoother_node', 
+                parameters=[velocity_smoother_config_filepath],
+                remappings={
+                    ('/cmd_vel', LaunchConfiguration('joy_vel')),
+                    ('/cmd_vel_smoothed', '/cmd_vel')},
             ),
         ]
     )
