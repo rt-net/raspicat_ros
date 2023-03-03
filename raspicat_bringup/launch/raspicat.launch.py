@@ -32,7 +32,7 @@ def generate_launch_description():
         name='raspimouse',
         package='raspimouse', executable='raspimouse', output='screen',
         parameters=[os.path.join(get_package_share_directory(
-            'raspicat_bringup'), 'config', 'params.yaml')]
+            'raspicat_bringup'), 'config', 'raspicat.param.yaml')]
     )
 
     emit_configuring_event = EmitEvent(

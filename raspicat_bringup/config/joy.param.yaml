@@ -1,0 +1,36 @@
+teleop_twist_joy_node:
+  ros__parameters:
+    axis_linear: 
+      x: 1
+    scale_linear:
+      x: 0.3
+    scale_linear_turbo:
+      x: 0.5
+    axis_angular:
+      yaw: 0
+    scale_angular:
+      yaw: 0.4
+    enable_button: 2
+    enable_turbo_button: 0
+
+velocity_smoother_controller_node:
+  ros__parameters:
+      accel_decel_button: [2]
+      no_accel_decel_button: [0]
+      # If you want to set both buttons
+      # accel_decel_button: [2, 0]
+      # no_accel_decel_button: [-1]
+
+velocity_smoother_node:
+  ros__parameters:
+    smoothing_frequency: 20.0
+    scale_velocities: false
+    feedback: "OPEN_LOOP"
+    max_velocity: [0.5, 0.0, 1.0]
+    min_velocity: [-0.5, 0.0, -1.0]
+    deadband_velocity: [0.0, 0.0, 0.0]
+    velocity_timeout: 1.0
+    max_accel: [1.0, 0.0, 2.0]
+    max_decel: [-1.0, 0.0, -2.0]
+    odom_topic: "odom"
+    odom_duration: 0.1

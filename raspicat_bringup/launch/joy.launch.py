@@ -37,7 +37,7 @@ def generate_launch_description():
             DeclareLaunchArgument('joy_config_filepath', default_value=[
                 TextSubstitution(text=os.path.join(
                     get_package_share_directory('raspicat_bringup'), 'config', '')),
-                'joy', TextSubstitution(text='.config.yaml')]),
+                'joy', TextSubstitution(text='.param.yaml')]),
 
             Node(
                 package='joy',
