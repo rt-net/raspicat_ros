@@ -69,7 +69,7 @@ class VelocitySmootherController : public rclcpp::Node
 
   std::vector<int64_t> accel_decel_button_;
   std::vector<int64_t> no_accel_decel_button_;
-  bool joy_vel_cb_flag_, cmd_vel_smoothed_cb_flag_;
+  bool joy_vel_cb_flag_;
 };
 
 }  // namespace raspicat_bringup

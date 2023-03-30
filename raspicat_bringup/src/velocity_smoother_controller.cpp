@@ -30,8 +30,7 @@ VelocitySmootherController::VelocitySmootherController()
     : Node("velocity_smoother_controller_node"),
       joy_vel_(geometry_msgs::msg::Twist()),
       cmd_vel_smoothed_(geometry_msgs::msg::Twist()),
-      joy_vel_cb_flag_(false),
-      cmd_vel_smoothed_cb_flag_(false)
+      joy_vel_cb_flag_(false)
 {
   initPubSub();
   initLifeCycleClient();
@@ -130,7 +129,6 @@ void VelocitySmootherController::callbackJoyVel(geometry_msgs::msg::Twist::Const
 void VelocitySmootherController::callbackCmdVelSmoothed(
     geometry_msgs::msg::Twist::ConstSharedPtr msg)
 {
-  cmd_vel_smoothed_cb_flag_ = true;
   cmd_vel_smoothed_ = *msg;
 }
 
