@@ -10,10 +10,14 @@
   <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
   <depend>rclcpp</depend>
-  <depend>teleop_twist_joy</depend>
   <depend>geometry_msgs</depend>
-  <depend>sensor_msgs</depend>
+  <depend>joint_state_publisher</depend>
   <depend>lifecycle_msgs</depend>
+  <depend>raspicat_description</depend>
+  <depend>sensor_msgs</depend>
+  <depend>teleop_twist_joy</depend>
+  <depend>urdf</depend>
+  <depend>xacro</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
