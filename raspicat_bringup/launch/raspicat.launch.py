@@ -38,11 +38,11 @@ def generate_launch_description():
 
     declare_use_urg = DeclareLaunchArgument(
         'use_urg',
-        default_value='False',
+        default_value='True',
         description='Whether or not to launch urg_node')
     
     urg_launch = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(launch_dir, 'urg_node.launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(launch_dir, 'urg.launch.py')),
             condition=IfCondition(use_urg)
     )
   
