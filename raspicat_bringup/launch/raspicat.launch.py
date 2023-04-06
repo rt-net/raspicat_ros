@@ -45,6 +45,10 @@ def generate_launch_description():
             PythonLaunchDescriptionSource(os.path.join(launch_dir, 'urg.launch.py')),
             condition=IfCondition(use_urg)
     )
+    
+    robot_state_publisher_launch = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(launch_dir, 'robot_state_publisher.launch.py')),
+    )
   
     mouse_node = LifecycleNode(
         namespace='',
@@ -95,6 +99,7 @@ def generate_launch_description():
     ld = LaunchDescription()
     ld.add_action(declare_use_urg)
     ld.add_action(urg_launch)
+    ld.add_action(robot_state_publisher_launch)
     
     ld.add_action(mouse_node)
     ld.add_action(register_activating_transition)
