@@ -14,6 +14,7 @@
   <depend>robot_state_publisher</depend>
   <depend>teleop_twist_joy</depend>
   <depend>urdf</depend>
+  <depend>urg_node</depend>
   <depend>xacro</depend>
 
   <test_depend>ament_lint_auto</test_depend>

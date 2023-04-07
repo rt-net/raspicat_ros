@@ -9,6 +9,7 @@
 
   <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
+  <depend>raspicat_bringup</depend>
   <depend>rclcpp</depend>
   <depend>geometry_msgs</depend>
   <depend>lifecycle_msgs</depend>
