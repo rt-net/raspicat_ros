@@ -57,7 +57,7 @@ def generate_launch_description():
                     ('/cmd_vel', LaunchConfiguration('joy_vel'))},
             ),
             Node(
-                package='raspicat_bringup',
+                package='raspicat',
                 executable='velocity_smoother_controller',
                 name='velocity_smoother_controller_node',
                 parameters=[joy_config_filepath],
