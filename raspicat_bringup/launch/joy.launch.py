@@ -17,27 +17,28 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.substitutions import LaunchConfiguration, TextSubstitution
 from launch.actions import DeclareLaunchArgument, GroupAction
+from launch.substitutions import LaunchConfiguration, TextSubstitution
 
 from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    joy_dev = LaunchConfiguration('joy_dev')
     joy_config_filepath = LaunchConfiguration(
         'joy_config_filepath')
+    joy_dev = LaunchConfiguration('joy_dev')
+    joy_vel = LaunchConfiguration('joy_vel')
 
     joy = GroupAction(
         actions=[
-            DeclareLaunchArgument(
-                'joy_vel', default_value='joy_vel'),
-            DeclareLaunchArgument(
-                'joy_dev', default_value='/dev/input/js0'),
             DeclareLaunchArgument('joy_config_filepath', default_value=[
                 TextSubstitution(text=os.path.join(
                     get_package_share_directory('raspicat_bringup'), 'config', '')),
-                'joy', TextSubstitution(text='.param.yaml')]),
+                        'joy', TextSubstitution(text='.param.yaml')]),
+            DeclareLaunchArgument(
+                'joy_dev', default_value='/dev/input/js0'),
+            DeclareLaunchArgument(
+                'joy_vel', default_value='joy_vel'),
 
             Node(
                 package='joy',
@@ -54,7 +55,7 @@ def generate_launch_description():
                 name='teleop_twist_joy_node',
                 parameters=[joy_config_filepath],
                 remappings={
-                    ('/cmd_vel', LaunchConfiguration('joy_vel'))},
+                    ('/cmd_vel', joy_vel)},
             ),
             Node(
                 package='raspicat',

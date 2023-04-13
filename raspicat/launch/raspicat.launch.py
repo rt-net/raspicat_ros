@@ -15,6 +15,7 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
+
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument 
 from launch.actions import EmitEvent
@@ -24,16 +25,18 @@ from launch.conditions import IfCondition
 from launch.events import matches_action
 from launch.events import Shutdown
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
+
 from launch_ros.actions import LifecycleNode
 from launch_ros.events import lifecycle
 from launch_ros.event_handlers import OnStateTransition
-from launch.substitutions import LaunchConfiguration
+
 from lifecycle_msgs.msg import Transition
 
 
 def generate_launch_description():
     launch_dir = os.path.join(get_package_share_directory('raspicat_bringup') + '/launch/')
-    
+        
     use_urg = LaunchConfiguration('use_urg')
 
     declare_use_urg = DeclareLaunchArgument(
@@ -42,12 +45,13 @@ def generate_launch_description():
         description='Whether or not to launch urg_node')
     
     urg_launch = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(launch_dir, 'urg.launch.py')),
-            condition=IfCondition(use_urg)
+        PythonLaunchDescriptionSource(os.path.join(
+            launch_dir, 'urg.launch.py')), condition=IfCondition(use_urg)
     )
     
     robot_state_publisher_launch = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(launch_dir, 'robot_state_publisher.launch.py')),
+        PythonLaunchDescriptionSource(os.path.join(
+            launch_dir, 'robot_state_publisher.launch.py')),
     )
   
     mouse_node = LifecycleNode(
@@ -97,6 +101,7 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
+
     ld.add_action(declare_use_urg)
     ld.add_action(urg_launch)
     ld.add_action(robot_state_publisher_launch)
