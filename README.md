@@ -26,31 +26,32 @@ ROS 2とLinux OSは以下の組み合わせでのみ確認しています
 
 ```sh
 # パッケージのダウンロード
-$ cd ~/catkin_ws/src
-$ git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse2.git
-$ git clone -b ros2 https://github.com/rt-net/raspicat_ros.git
+cd ~/catkin_ws/src
+git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse2.git
+git clone -b ros2 https://github.com/rt-net/raspicat_description.git
+git clone -b ros2 https://github.com/rt-net/raspicat_ros.git
 
 # 依存パッケージのインストール
-$ rosdep install -r -y -i --from-paths raspicat* raspimouse*
+rosdep install -r -y -i --from-paths raspicat* raspimouse*
 
 # ビルド＆インストール
-$ cd ~/catkin_ws
-$ colcon build --symlink-install
-$ source ~/catkin_ws/install/setup.bash
+cd ~/catkin_ws
+colcon build --symlink-install
+source ~/catkin_ws/install/setup.bash
 ```
 
 ## QuickStart
 
 ```sh
 # 端末 1
-$ source ~/catkin_ws/install/setup.bash
-$ ros2 launch raspicat_bringup raspicat.launch.py
+source ~/catkin_ws/install/setup.bash
+ros2 launch raspicat_bringup raspicat.launch.py
 
 # 端末 2
 # モータの回転
-$ source ~/catkin_ws/install/setup.bash
-$ ros2 service call /motor_power std_srvs/SetBool '{data: true}'
-$ ros2 topic pub -1 /cmd_vel geometry_msgs/Twist '{linear: {x: 0.15, y: 0, z: 0}, angular: {x: 0, y: 0, z: 0.1}}'
+source ~/catkin_ws/install/setup.bash
+ros2 service call /motor_power std_srvs/SetBool '{data: true}'
+ros2 topic pub -1 /cmd_vel geometry_msgs/Twist '{linear: {x: 0.15, y: 0, z: 0}, angular: {x: 0, y: 0, z: 0.1}}'
 ```
 
 ## License
