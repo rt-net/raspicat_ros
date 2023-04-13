@@ -13,12 +13,12 @@
   - https://ubuntu.com/download/raspberry-pi
 - Device Driver
   - [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
-- ROS2
+- ROS 2
   - [Humble Hawksbill](https://docs.ros.org/en/humble/Installation.html)
 
-ROS2とLinux OSは以下の組み合わせでのみ確認しています
+ROS 2とLinux OSは以下の組み合わせでのみ確認しています
 
-* ROS2 Humble + Ubuntu 22.04
+* ROS 2 Humble + Ubuntu 22.04
 
 ## Installation
 
