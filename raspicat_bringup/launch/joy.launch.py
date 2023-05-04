@@ -28,17 +28,20 @@ def generate_launch_description():
         'joy_config_filepath')
     joy_dev = LaunchConfiguration('joy_dev')
     joy_vel = LaunchConfiguration('joy_vel')
+    output_vel = LaunchConfiguration('output_vel')
 
     joy = GroupAction(
         actions=[
             DeclareLaunchArgument('joy_config_filepath', default_value=[
                 TextSubstitution(text=os.path.join(
                     get_package_share_directory('raspicat_bringup'), 'config', '')),
-                        'joy', TextSubstitution(text='.param.yaml')]),
+                'joy', TextSubstitution(text='.param.yaml')]),
             DeclareLaunchArgument(
                 'joy_dev', default_value='/dev/input/js0'),
             DeclareLaunchArgument(
                 'joy_vel', default_value='joy_vel'),
+            DeclareLaunchArgument(
+                'output_vel', default_value='cmd_vel'),
 
             Node(
                 package='joy',
@@ -62,6 +65,8 @@ def generate_launch_description():
                 executable='velocity_smoother_controller',
                 name='velocity_smoother_controller_node',
                 parameters=[joy_config_filepath],
+                remappings={
+                    ('/cmd_vel', output_vel)},
             ),
             Node(
                 package='nav2_velocity_smoother',
