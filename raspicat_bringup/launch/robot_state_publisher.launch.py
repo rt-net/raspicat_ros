@@ -27,7 +27,7 @@ from launch_ros.actions import PushRosNamespace
 def generate_launch_description():
     namespace = LaunchConfiguration('namespace')
     lidar_frame = LaunchConfiguration('lidar_frame')
-  
+
     declare_arg_lidar_frame = DeclareLaunchArgument(
         'lidar_frame',
         default_value='lidar_link',
@@ -39,11 +39,11 @@ def generate_launch_description():
 
     xacro_file = os.path.join(get_package_share_directory(
         'raspicat_description'), 'urdf', 'raspicat.urdf.xacro')
-    
+
     params = {'robot_description':
-        Command(['xacro ', xacro_file,
-                ' lidar_frame:=', lidar_frame, ]),
-                'frame_prefix': [namespace, '/']}
+              Command(['xacro ', xacro_file,
+                       ' lidar_frame:=', lidar_frame, ]),
+              'frame_prefix': [namespace, '/']}
 
     push_ns = PushRosNamespace([namespace])
 
