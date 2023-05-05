@@ -27,10 +27,10 @@ namespace raspicat_bringup
 {
 
 VelocitySmootherController::VelocitySmootherController()
-    : Node("velocity_smoother_controller_node"),
-      joy_vel_(geometry_msgs::msg::Twist()),
-      cmd_vel_smoothed_(geometry_msgs::msg::Twist()),
-      joy_vel_cb_flag_(false)
+: Node("velocity_smoother_controller_node"),
+  joy_vel_(geometry_msgs::msg::Twist()),
+  cmd_vel_smoothed_(geometry_msgs::msg::Twist()),
+  joy_vel_cb_flag_(false)
 {
   initPubSub();
   initLifeCycleClient();
@@ -46,21 +46,21 @@ void VelocitySmootherController::initPubSub()
   control_vel_pub_ = create_publisher<geometry_msgs::msg::Twist>("control_vel", 10);
 
   joy_sub_ = create_subscription<sensor_msgs::msg::Joy>(
-      "joy", 10, std::bind(&VelocitySmootherController::callbackJoy, this, std::placeholders::_1));
+    "joy", 10, std::bind(&VelocitySmootherController::callbackJoy, this, std::placeholders::_1));
   joy_vel_sub_ = create_subscription<geometry_msgs::msg::Twist>(
-      "joy_vel", 10,
-      std::bind(&VelocitySmootherController::callbackJoyVel, this, std::placeholders::_1));
+    "joy_vel", 10,
+    std::bind(&VelocitySmootherController::callbackJoyVel, this, std::placeholders::_1));
   cmd_vel_smoothed_sub_ = create_subscription<geometry_msgs::msg::Twist>(
-      "cmd_vel_smoothed", 10,
-      std::bind(&VelocitySmootherController::callbackCmdVelSmoothed, this, std::placeholders::_1));
+    "cmd_vel_smoothed", 10,
+    std::bind(&VelocitySmootherController::callbackCmdVelSmoothed, this, std::placeholders::_1));
 }
 
 void VelocitySmootherController::initLifeCycleClient()
 {
   client_get_state_ =
-      this->create_client<lifecycle_msgs::srv::GetState>("velocity_smoother_node/get_state");
+    this->create_client<lifecycle_msgs::srv::GetState>("velocity_smoother_node/get_state");
   client_change_state_ =
-      this->create_client<lifecycle_msgs::srv::ChangeState>("velocity_smoother_node/change_state");
+    this->create_client<lifecycle_msgs::srv::ChangeState>("velocity_smoother_node/change_state");
 }
 
 void VelocitySmootherController::setParam()
@@ -75,16 +75,17 @@ void VelocitySmootherController::getParam()
   no_accel_decel_button_ = get_parameter("no_accel_decel_button").as_integer_array();
 }
 
-void VelocitySmootherController::changeLifeCycleState(std::uint8_t transition,
-                                                      std::chrono::seconds time_out)
+void VelocitySmootherController::changeLifeCycleState(
+  std::uint8_t transition,
+  std::chrono::seconds time_out)
 {
   auto request = std::make_shared<lifecycle_msgs::srv::ChangeState::Request>();
   request->transition.id = transition;
 
-  if (!client_change_state_->wait_for_service(time_out))
-  {
-    RCLCPP_ERROR(get_logger(), "Service %s is not available.",
-                 client_change_state_->get_service_name());
+  if (!client_change_state_->wait_for_service(time_out)) {
+    RCLCPP_ERROR(
+      get_logger(), "Service %s is not available.",
+      client_change_state_->get_service_name());
     return;
   }
 
@@ -92,31 +93,30 @@ void VelocitySmootherController::changeLifeCycleState(std::uint8_t transition,
   wait_for_result(future_result, time_out);
 }
 
-template <typename FutureT, typename WaitTimeT>
-void VelocitySmootherController::wait_for_result(FutureT& future, WaitTimeT time_to_wait)
+template<typename FutureT, typename WaitTimeT>
+void VelocitySmootherController::wait_for_result(FutureT & future, WaitTimeT time_to_wait)
 {
   auto end = std::chrono::steady_clock::now() + time_to_wait;
   std::chrono::milliseconds wait_period(100);
   std::future_status status = std::future_status::timeout;
-  do
-  {
+  do{
     auto now = std::chrono::steady_clock::now();
     auto time_left = end - now;
-    if (time_left <= std::chrono::seconds(0)) break;
+    if (time_left <= std::chrono::seconds(0)) {break;}
     status = future.wait_for((time_left < wait_period) ? time_left : wait_period);
   } while (rclcpp::ok() && status != std::future_status::ready);
 }
 
 void VelocitySmootherController::callbackJoy(sensor_msgs::msg::Joy::ConstSharedPtr msg)
 {
-  if (joy_vel_cb_flag_)
-  {
-    if (shouldExecute(msg->buttons, accel_decel_button_))
+  if (joy_vel_cb_flag_) {
+    if (shouldExecute(msg->buttons, accel_decel_button_)) {
       accel_decel();
-    else if (shouldExecute(msg->buttons, no_accel_decel_button_))
+    } else if (shouldExecute(msg->buttons, no_accel_decel_button_)) {
       no_accel_decel();
-    else
+    } else {
       stop();
+    }
   }
 }
 
@@ -127,7 +127,7 @@ void VelocitySmootherController::callbackJoyVel(geometry_msgs::msg::Twist::Const
 }
 
 void VelocitySmootherController::callbackCmdVelSmoothed(
-    geometry_msgs::msg::Twist::ConstSharedPtr msg)
+  geometry_msgs::msg::Twist::ConstSharedPtr msg)
 {
   cmd_vel_smoothed_ = *msg;
 }
@@ -150,20 +150,21 @@ void VelocitySmootherController::stop()
   cmd_vel_pub_->publish(geometry_msgs::msg::Twist());
 }
 
-bool VelocitySmootherController::shouldExecute(std::vector<int> button_num,
-                                               std::vector<int64_t> button_num_param)
+bool VelocitySmootherController::shouldExecute(
+  std::vector<int> button_num,
+  std::vector<int64_t> button_num_param)
 {
-  if (button_num_param.empty()) return false;
+  if (button_num_param.empty()) {return false;}
 
-  for (auto bnp : button_num_param)
-    if (button_num[bnp]) return true;
+  for (auto bnp : button_num_param) {
+    if (button_num[bnp]) {return true;}}
 
   return false;
 }
 
 }  // namespace raspicat_bringup
 
-int main(int argc, char* argv[])
+int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<raspicat_bringup::VelocitySmootherController>());

@@ -32,17 +32,17 @@ namespace raspicat_bringup
 
 class VelocitySmootherController : public rclcpp::Node
 {
- public:
+public:
   VelocitySmootherController();
 
- protected:
+protected:
   void initPubSub();
   void initLifeCycleClient();
   void setParam();
   void getParam();
   void changeLifeCycleState(std::uint8_t transition, std::chrono::seconds time_out);
-  template <typename FutureT, typename WaitTimeT>
-  void wait_for_result(FutureT& future, WaitTimeT time_to_wait);
+  template<typename FutureT, typename WaitTimeT>
+  void wait_for_result(FutureT & future, WaitTimeT time_to_wait);
 
   void callbackJoy(sensor_msgs::msg::Joy::ConstSharedPtr msg);
   void callbackJoyVel(geometry_msgs::msg::Twist::ConstSharedPtr msg);
@@ -53,7 +53,7 @@ class VelocitySmootherController : public rclcpp::Node
   void stop();
   bool shouldExecute(std::vector<int> button_num, std::vector<int64_t> button_num_param);
 
- private:
+private:
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_pub_;
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr control_vel_pub_;
   rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr joy_sub_;
