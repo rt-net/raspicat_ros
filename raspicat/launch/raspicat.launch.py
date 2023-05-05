@@ -17,7 +17,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument 
+from launch.actions import DeclareLaunchArgument
 from launch.actions import EmitEvent
 from launch.actions import RegisterEventHandler
 from launch.actions import IncludeLaunchDescription
@@ -35,31 +35,32 @@ from lifecycle_msgs.msg import Transition
 
 
 def generate_launch_description():
-    launch_dir = os.path.join(get_package_share_directory('raspicat_bringup') + '/launch/')
-        
+    launch_dir = os.path.join(get_package_share_directory(
+        'raspicat_bringup') + '/launch/')
+
     use_urg = LaunchConfiguration('use_urg')
 
     declare_use_urg = DeclareLaunchArgument(
         'use_urg',
         default_value='True',
         description='Whether or not to launch urg_node')
-    
+
     urg_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(
             launch_dir, 'urg.launch.py')), condition=IfCondition(use_urg)
     )
-    
+
     robot_state_publisher_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(
             launch_dir, 'robot_state_publisher.launch.py')),
     )
-  
+
     mouse_node = LifecycleNode(
         namespace='',
         name='raspimouse',
         package='raspimouse', executable='raspimouse', output='screen',
         parameters=[os.path.join(get_package_share_directory(
-            'raspicat_bringup'), 'config', 'raspicat.param.yaml')]
+            'raspicat'), 'config', 'raspicat.param.yaml')]
     )
 
     emit_configuring_event = EmitEvent(
@@ -105,7 +106,7 @@ def generate_launch_description():
     ld.add_action(declare_use_urg)
     ld.add_action(urg_launch)
     ld.add_action(robot_state_publisher_launch)
-    
+
     ld.add_action(mouse_node)
     ld.add_action(register_activating_transition)
     ld.add_action(register_shutting_down_transition)
