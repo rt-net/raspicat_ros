@@ -16,30 +16,30 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 
-from launch import LaunchDescription
+from launch import LaunchContext, LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction
+from launch.conditions import LaunchConfigurationEquals
 from launch.substitutions import LaunchConfiguration, TextSubstitution
-
 from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    teleop = LaunchConfiguration('teleop', default='key')
     joy_config_filepath = LaunchConfiguration(
         'joy_config_filepath')
     joy_dev = LaunchConfiguration('joy_dev')
-    joy_vel = LaunchConfiguration('joy_vel')
     output_vel = LaunchConfiguration('output_vel')
 
     joy = GroupAction(
+        condition=LaunchConfigurationEquals('teleop', 'joy'),
         actions=[
+            DeclareLaunchArgument('teleop', default_value='joy'),
             DeclareLaunchArgument('joy_config_filepath', default_value=[
                 TextSubstitution(text=os.path.join(
                     get_package_share_directory('raspicat_bringup'), 'config', '')),
                 'joy', TextSubstitution(text='.param.yaml')]),
             DeclareLaunchArgument(
                 'joy_dev', default_value='/dev/input/js0'),
-            DeclareLaunchArgument(
-                'joy_vel', default_value='joy_vel'),
             DeclareLaunchArgument(
                 'output_vel', default_value='cmd_vel'),
 
@@ -58,7 +58,7 @@ def generate_launch_description():
                 name='teleop_twist_joy_node',
                 parameters=[joy_config_filepath],
                 remappings={
-                    ('/cmd_vel', joy_vel)},
+                    ('/cmd_vel', str(teleop.perform(LaunchContext())) + '_vel')},
             ),
             Node(
                 package='raspicat',
@@ -66,7 +66,8 @@ def generate_launch_description():
                 name='velocity_smoother_controller_node',
                 parameters=[joy_config_filepath],
                 remappings={
-                    ('/cmd_vel', output_vel)},
+                    ('/input_vel',  str(teleop.perform(LaunchContext())) + '_vel'),
+                    ('/output_vel', output_vel)},
             ),
             Node(
                 package='nav2_velocity_smoother',
@@ -79,8 +80,42 @@ def generate_launch_description():
         ]
     )
 
+    key = GroupAction(
+        condition=LaunchConfigurationEquals('teleop', 'key'),
+        actions=[
+            DeclareLaunchArgument('teleop', default_value='key'),
+            DeclareLaunchArgument(
+                'output_vel', default_value='cmd_vel'),
+            Node(
+                package='teleop_twist_keyboard',
+                executable='teleop_twist_keyboard',
+                name='teleop_twist_key_node',
+                output='screen',
+                prefix='xterm -e',
+                remappings={
+                    ('/cmd_vel',  str(teleop.perform(LaunchContext())) + '_vel')},
+            ),
+            Node(
+                package='raspicat',
+                executable='velocity_smoother_controller',
+                name='velocity_smoother_controller_node',
+                remappings={
+                    ('/input_vel',  str(teleop.perform(LaunchContext())) + '_vel'),
+                    ('/output_vel', output_vel)},
+            ),
+            Node(
+                package='nav2_velocity_smoother',
+                executable='velocity_smoother',
+                name='velocity_smoother_node',
+                remappings={
+                    ('/cmd_vel', 'control_vel')},
+            ),
+        ]
+    )
+
     ld = LaunchDescription()
 
     ld.add_action(joy)
+    ld.add_action(key)
 
     return ld
