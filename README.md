@@ -7,8 +7,7 @@
 - Raspberry Pi Cat
   - https://rt-net.jp/products/raspberry-pi-cat/
 - Linux OS
-  - Ubuntu Server 22.04
-  - https://ubuntu.com/download/raspberry-pi
+  - [Ubuntu Server 22.04](https://ubuntu.com/download/raspberry-pi)
 - Device Driver
   - [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
 - ROS 2
@@ -30,6 +29,7 @@ git clone -b ros2 https://github.com/rt-net/raspicat_ros.git
 git clone -b ros2 https://github.com/rt-net/raspicat_description.git
 
 # 依存パッケージのインストール
+rosdep update
 rosdep install -r -y -i --from-paths raspicat* raspimouse*
 
 # ビルド＆インストール
