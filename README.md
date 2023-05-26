@@ -1,8 +1,6 @@
-# raspicat_bringup
-
+# raspicat_ros
 
 ## Build Status
-
 
 ## Requirements
 
@@ -28,8 +26,8 @@ ROS 2とLinux OSは以下の組み合わせでのみ確認しています
 # パッケージのダウンロード
 cd ~/catkin_ws/src
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse2.git
-git clone -b ros2 https://github.com/rt-net/raspicat_description.git
 git clone -b ros2 https://github.com/rt-net/raspicat_ros.git
+git clone -b ros2 https://github.com/rt-net/raspicat_description.git
 
 # 依存パッケージのインストール
 rosdep install -r -y -i --from-paths raspicat* raspimouse*
