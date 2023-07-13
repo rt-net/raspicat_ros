@@ -27,11 +27,11 @@ from launch_ros.actions import Node
 def generate_launch_description():
     raspicat_bringup_dir = get_package_share_directory('raspicat_bringup')
 
-    urg_interface = LaunchConfiguration('urg')
+    urg_interface = LaunchConfiguration('urg_interface')
     params_file = LaunchConfiguration('params_file')
 
     declare_urg_interface = DeclareLaunchArgument(
-        'urg',
+        'urg_interface',
         default_value='serial',
         description='urg_interface: supported: serial, ethernet')
     declare_params_file = DeclareLaunchArgument('params_file', default_value=[
