@@ -44,8 +44,8 @@ def generate_launch_description():
                 'output_vel', default_value='cmd_vel'),
 
             Node(
-                package='joy',
-                executable='joy_node',
+                package='joy_linux',
+                executable='joy_linux_node',
                 name='joy_node',
                 parameters=[{
                     'dev': joy_dev,
