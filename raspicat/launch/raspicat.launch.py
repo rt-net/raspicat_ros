@@ -46,14 +46,14 @@ def generate_launch_description():
         default_value='True',
         description='Whether or not to launch urg_node')
     declare_urg_interface = DeclareLaunchArgument(
-        'urg_interface',
+        'urg',
         default_value='serial',
         description='urg_interface: supported: serial, ethernet')
 
     urg_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(
             launch_dir, 'urg.launch.py')), condition=IfCondition(use_urg),
-        launch_arguments={'urg': urg_interface}.items()
+        launch_arguments={'urg_interface': urg_interface}.items()
     )
 
     robot_state_publisher_launch = IncludeLaunchDescription(
