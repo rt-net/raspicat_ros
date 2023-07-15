@@ -29,28 +29,28 @@ def generate_launch_description():
 
     urg_interface = LaunchConfiguration('urg_interface')
     params_file = LaunchConfiguration('params_file')
-    
+
     declare_urg_interface = DeclareLaunchArgument(
-            'urg_interface',
-            default_value='serial',
-            description='urg_interface: supported: serial, ethernet')
+        'urg_interface',
+        default_value='serial',
+        description='urg_interface: supported: serial, ethernet')
     declare_params_file = DeclareLaunchArgument('params_file', default_value=[
-            TextSubstitution(text=os.path.join(
-                raspicat_bringup_dir, 'config','')),
-                'urg_', urg_interface, TextSubstitution(text='.param.yaml')])
-    
+        TextSubstitution(text=os.path.join(
+            raspicat_bringup_dir, 'config', '')),
+        'urg_', urg_interface, TextSubstitution(text='.param.yaml')])
+
     urg_node = Node(
         package='urg_node',
-        executable='urg_node_driver', 
+        executable='urg_node_driver',
         output='screen',
         parameters=[params_file]
     )
-    
+
     ld = LaunchDescription()
-    
+
     ld.add_action(declare_urg_interface)
     ld.add_action(declare_params_file)
-    
+
     ld.add_action(urg_node)
 
     return ld

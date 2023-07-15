@@ -39,15 +39,21 @@ def generate_launch_description():
         'raspicat_bringup') + '/launch/')
 
     use_urg = LaunchConfiguration('use_urg')
+    urg_interface = LaunchConfiguration('urg')
 
     declare_use_urg = DeclareLaunchArgument(
         'use_urg',
         default_value='True',
         description='Whether or not to launch urg_node')
+    declare_urg_interface = DeclareLaunchArgument(
+        'urg',
+        default_value='serial',
+        description='urg_interface: supported: serial, ethernet')
 
     urg_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(
-            launch_dir, 'urg.launch.py')), condition=IfCondition(use_urg)
+            launch_dir, 'urg.launch.py')), condition=IfCondition(use_urg),
+        launch_arguments={'urg_interface': urg_interface}.items()
     )
 
     robot_state_publisher_launch = IncludeLaunchDescription(
@@ -104,6 +110,8 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     ld.add_action(declare_use_urg)
+    ld.add_action(declare_urg_interface)
+
     ld.add_action(urg_launch)
     ld.add_action(robot_state_publisher_launch)
 
